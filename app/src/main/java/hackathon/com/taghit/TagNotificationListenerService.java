@@ -13,6 +13,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+import hackathon.com.taghit.model.GroupsTags;
 
 /**
  * Created by hporat on 07/03/2016.
@@ -40,6 +43,40 @@ public class TagNotificationListenerService extends NotificationListenerService 
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
+
+        String packageName = sbn.getPackageName();
+        if (packageName.equalsIgnoreCase("com.whatsapp")) {
+            Log.i(TAG,"onNotificationPosted - whatsapp notification");
+
+            String ticker ="";
+            if(sbn.getNotification().tickerText !=null) {
+                ticker = sbn.getNotification().tickerText.toString();
+            }
+            Bundle extras = sbn.getNotification().extras;
+            String groupName = extras.getString("android.title");
+            String message = extras.getCharSequence("android.text").toString();
+//            int id1 = extras.getInt(Notification.EXTRA_SMALL_ICON);
+//            Bitmap id = sbn.getNotification().largeIcon;
+
+            Log.i(TAG, "packageName: " + packageName + " from: " + ticker + " group: " + groupName + " message: " + message);
+
+            List<String> tags = GroupsTags.getTags(groupName.toLowerCase());
+            if (tags != null) {
+                boolean isImportantMessage = false;
+                for (String tag :tags) {
+                    if (message.contains(tag)) {
+                        isImportantMessage = true;
+                        // we want this message
+                    }
+                }
+                if (!isImportantMessage) {
+                    Log.i(TAG, "This message should be filtered");
+//                this.cancelNotification("");
+                }
+            }
+        }
+        /*
+
         Log.i(TAG, "onNotificationPosted");
         String pack = sbn.getPackageName();
         String ticker ="";
@@ -69,7 +106,7 @@ public class TagNotificationListenerService extends NotificationListenerService 
             byte[] byteArray = stream.toByteArray();
             msgrcv.putExtra("icon",byteArray);
         }
-
+*/
 
 
     }

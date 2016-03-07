@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import hackathon.com.taghit.model.GroupsTags;
+
 public class MainActivity extends Activity {
 
     private NotificationReceiver nReceiver;
@@ -22,6 +24,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GroupsTags.load();
         System.out.println("MainActivity onCreate() has been initialized");
         setContentView(R.layout.activity_main);
         nReceiver = new NotificationReceiver();
@@ -33,6 +36,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        GroupsTags.save();
         super.onDestroy();
         unregisterReceiver(nReceiver);
     }
