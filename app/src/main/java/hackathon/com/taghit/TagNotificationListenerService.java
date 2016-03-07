@@ -53,62 +53,45 @@ public class TagNotificationListenerService extends NotificationListenerService 
                 ticker = sbn.getNotification().tickerText.toString();
             }
             Bundle extras = sbn.getNotification().extras;
-            String groupName = extras.getString("android.title");
+            String group = extras.getString("android.title");
+            String[] splitByAssetrix = group.split("@");
+            String groupName = splitByAssetrix.length > 1 ? splitByAssetrix[1].trim() : group;
             String message = extras.getCharSequence("android.text").toString();
-//            int id1 = extras.getInt(Notification.EXTRA_SMALL_ICON);
-//            Bitmap id = sbn.getNotification().largeIcon;
 
+            // if it is a summary of few massages
+            if(message.endsWith("new messages")){};
+
+            // get the group name
+            if(groupName.contains("@"))
+            {
+                // group name appear after '@'
+                groupName=groupName.substring(groupName.lastIndexOf("@",groupName.length()));
+            }
+
+            GroupsTags.addGroup(groupName);
             Log.i(TAG, "packageName: " + packageName + " from: " + ticker + " group: " + groupName + " message: " + message);
 
             List<String> tags = GroupsTags.getTags(groupName.toLowerCase());
             if (tags != null) {
                 boolean isImportantMessage = false;
                 for (String tag :tags) {
-                    if (message.contains(tag)) {
+                    if (message.toLowerCase().contains(tag) || (ticker!=null && ticker.contains(tag))) {
                         isImportantMessage = true;
                         // we want this message
                     }
                 }
+
+                //Remove notification if it is nor important
                 if (!isImportantMessage) {
                     Log.i(TAG, "This message should be filtered");
-//                this.cancelNotification("");
+                    this.cancelNotification(sbn.getKey());
+                }
+
+                if(isImportantMessage){
+                    // todo - create notification
                 }
             }
         }
-        /*
-
-        Log.i(TAG, "onNotificationPosted");
-        String pack = sbn.getPackageName();
-        String ticker ="";
-        if(sbn.getNotification().tickerText !=null) {
-            ticker = sbn.getNotification().tickerText.toString();
-        }
-        Bundle extras = sbn.getNotification().extras;
-        String title = extras.getString("android.title");
-        String text = extras.getCharSequence("android.text").toString();
-        int id1 = extras.getInt(Notification.EXTRA_SMALL_ICON);
-        Bitmap id = sbn.getNotification().largeIcon;
-
-
-        Log.i("Msg","pack "+pack);
-        Log.i("Msg","ticker "+ticker);
-        Log.i("Msg","title "+title);
-        Log.i("Msg","text "+text);
-
-        Intent msgrcv = new Intent("Msg");
-        msgrcv.putExtra("package", pack);
-        msgrcv.putExtra("ticker", ticker);
-        msgrcv.putExtra("title", title);
-        msgrcv.putExtra("text", text);
-        if(id != null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            id.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            msgrcv.putExtra("icon",byteArray);
-        }
-*/
-
-
     }
 
     @Override
