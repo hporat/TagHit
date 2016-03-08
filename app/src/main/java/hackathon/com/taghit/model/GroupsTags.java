@@ -1,8 +1,14 @@
 package hackathon.com.taghit.model;
 
 import android.content.Context;
+import android.os.Environment;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,12 +21,11 @@ public class GroupsTags {
     private static Map<String, List<String>> groupsToTagsMap = new HashMap<>();
 
     public static void addGroup(String groupName) {
-        if(!groupsToTagsMap.containsKey(groupName.toLowerCase())) groupsToTagsMap.put(groupName.toLowerCase(), new ArrayList<String>());
+        if(!groupsToTagsMap.containsKey(groupName)) groupsToTagsMap.put(groupName, new ArrayList<String>());
         GroupsTags.save();
     }
 
     public static void addTag(String groupName, String tagName) {
-        groupName = groupName.toLowerCase();
         tagName = tagName.toLowerCase();
         if (!groupsToTagsMap.containsKey(groupName)) {
             groupsToTagsMap.put(groupName, new ArrayList<String>());
@@ -32,27 +37,47 @@ public class GroupsTags {
     public static List<String> getTags(String groupName) {
         // if load wasnt read
         if(groupsToTagsMap.isEmpty()) GroupsTags.load();
+        if(!groupsToTagsMap.containsKey(groupName)) {
+            addGroup(groupName);
+        }
         return groupsToTagsMap.get(groupName);
     }
 
     public static void save() {
         //// TODO: 07/03/2016
-        /*String filename = "myfile";
-        String string = "Hello world!";
-        FileOutputStream outputStream;
-
         try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(string.getBytes());
-            outputStream.close();
+            File path = Environment.getExternalStoragePublicDirectory(Environment.MEDIA_SHARED);
+            FileOutputStream fout = new FileOutputStream(path.getAbsolutePath()+"//groups.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(groupsToTagsMap);
+            oos.close();
+            System.out.println("Done");
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     public static void load() {
         addTag("IATI", "hi");
-        addTag("iati", "@Hadas");
+        addTag("IATI", "@Hadas");
         //// TODO: 07/03/2016
+        try
+        {
+            File path = Environment.getExternalStoragePublicDirectory(Environment.MEDIA_SHARED);
+            FileInputStream fileIn = new FileInputStream(path.getAbsolutePath()+"//groups.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            groupsToTagsMap = (Map<String, List<String>>) in.readObject();
+            in.close();
+            fileIn.close();
+        }catch(IOException i)
+        {
+            i.printStackTrace();
+            return;
+        }catch(ClassNotFoundException c)
+        {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return;
+        }
     }
 }
