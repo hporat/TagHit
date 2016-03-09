@@ -5,7 +5,8 @@
     android:layout_height="fill_parent"
     android:padding="10px"
     android:orientation="vertical"
-    android:background="?attr/colorPrimary">
+    android:background="@drawable/custom_border"
+    >
 
     <TextView
         android:layout_width="fill_parent"
@@ -13,15 +14,16 @@
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="New tag"
-        android:textColor="#ffffff" />
+        android:layout_margin="10dp"
+        android:textColor="@color/colorPrimary"
+        android:text="New tag" />
 
 
     <EditText android:id="@+id/new_tag_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="10sp"
-        android:textColor="#ffffff" />
+        android:textColor="@color/colorPrimary" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -35,7 +37,7 @@
             android:layout_centerHorizontal="true"
             android:src="@android:drawable/btn_plus"
             android:text="OK"
-            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:theme="@style/AppTheme" />
 
     </LinearLayout>

@@ -6,10 +6,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatTextView;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,12 +69,57 @@ public class EditGroupTag extends BaseFragment implements ImageButton.OnClickLis
                 android.R.layout.simple_list_item_1, tags);
         mTagsLst.setAdapter(adapter);
 
+        registerForContextMenu(mTagsLst);
+
         FloatingActionButton addButton = (FloatingActionButton)returnView.findViewById(R.id.addTagButton);
         addButton.setOnClickListener(this);
 
         return returnView;
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,  ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        Object item = adapter.getItem(info.position);
+
+        menu.setHeaderTitle(item.toString());
+        menu.add(0, v.getId(), 0, "Delete");
+
+//        MenuInflater inflater = getActivity().getMenuInflater();
+//        inflater.inflate(R.menu.tag_context_menu, menu);
+    }
+
+    private int getAdapterItemPosition(long id)
+    {
+        for (int position=0; position<adapter.getCount(); position++)
+            if (adapter.getItemId(position) == id)
+                return position;
+        return 0;
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + item.getItemId());
+        System.out.println("!!!!!!!!!!" + adapter.getItem(getAdapterItemPosition(item.getItemId())));
+        return super.onContextItemSelected(item);
+//        if (item.getTitle() == "Delete") {
+//            mTagsLst.get
+//        }
+//            deleteContact(item.getItemId());
+//
+//
+//        switch (item.getItemId()) {
+//            case R.id.tag_delete:
+//                Object selectedTag = mTagsLst.getSelectedItem();
+//                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//               // GroupsTags.getTags()
+////                mAdapter.remove(info.position);
+//                return true;
+//            default:
+//                return super.onContextItemSelected(item);
+//        }
+    }
     @Override
     public void onClick(View v) {
         initiatePopupWindow();
@@ -89,6 +139,7 @@ public class EditGroupTag extends BaseFragment implements ImageButton.OnClickLis
             // create a 300px width and 470px height PopupWindow
             pw = new PopupWindow(layout, 500, 370, true);
             // display the popup in the center
+
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
             mNewTagTxt = (EditText) layout.findViewById(R.id.new_tag_text);

@@ -48,8 +48,8 @@ tools:context="hackathon.com.taghit.EditGroupTag">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Keywords:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="20dp"
             android:textStyle="bold"
             android:id="@+id/tagsListName"
@@ -90,6 +90,7 @@ tools:context="hackathon.com.taghit.EditGroupTag">
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:adjustViewBounds="false"
+            android:background="@color/colorPrimary"
         />
 
     </RelativeLayout>
