@@ -2,6 +2,7 @@ package hackathon.com.taghit;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -47,12 +48,18 @@ public class MainActivity extends  AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.icon_app_1);
+//        actionBar.setDisplayUseLogoEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(true);
+
+
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         ArrayList<String> titles = new ArrayList<String>();
-        titles.add("General");titles.add("Groups");titles.add("Contacts");
+        titles.add("Groups");
+        titles.add("Contacts");
 
         viewPagerAdapter.setTabTitles(titles);
 //        viewPagerAdapter.addFragment(new GeneralFragement(), "General");

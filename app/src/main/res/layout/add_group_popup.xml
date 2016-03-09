@@ -5,7 +5,8 @@
     android:layout_height="fill_parent"
     android:padding="10px"
     android:orientation="vertical"
-    android:background="?attr/colorPrimary">
+    android:background="@drawable/custom_border"
+    >
 
     <TextView
         android:layout_width="fill_parent"
@@ -14,14 +15,16 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:text="New group name:"
-        android:textColor="#ffffff" />
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="10dp" />
 
 
     <EditText android:id="@+id/new_group_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="10sp"
-        android:textColor="#ffffff" />
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="10dp" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -35,8 +38,10 @@
             android:layout_centerHorizontal="true"
             android:src="@android:drawable/btn_plus"
             android:text="OK"
-            android:textStyle="bold"
-            android:theme="@style/AppTheme" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:theme="@style/AppTheme"
+
+            />
 
     </LinearLayout>
 </LinearLayout>

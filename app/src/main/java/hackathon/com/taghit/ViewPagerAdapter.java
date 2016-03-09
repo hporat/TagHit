@@ -42,7 +42,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 //        return fragments.get(position);
 
-        if(position == 1) {
+        if(position == 0) {
             if (mFragmentAtPos1 == null) {
                 mFragmentAtPos1 = GroupsFragement.newInstance(new BaseFragment.PageFragmentListener() {
                     public void onSwitchToNextFragment(String key, List<String> values) {
@@ -55,7 +55,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             }
             return mFragmentAtPos1;
         }
-        else if(position == 2) {
+        else if(position == 1) {
             if (mFragmentAtPos2 == null) {
                 mFragmentAtPos2 = ContactsFragement.newInstance(new BaseFragment.PageFragmentListener() {
                     public void onSwitchToNextFragment(String key, List<String> values) {
@@ -99,7 +99,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     public void replaceChildFragment(BaseFragment oldFrg, int position) {
         switch (position) {
-            case 1:
+            case 0:
                 mFragmentManager.beginTransaction().remove(oldFrg).commit();
                 mFragmentAtPos1 = GroupsFragement.newInstance(new BaseFragment.PageFragmentListener() {
                     public void onSwitchToNextFragment(String key, List<String> values) {
@@ -113,7 +113,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 notifyDataSetChanged();
                 break;
 
-            case 2:
+            case 1:
                 mFragmentManager.beginTransaction().remove(oldFrg).commit();
                 mFragmentAtPos2 = ContactsFragement.newInstance(new BaseFragment.PageFragmentListener() {
                     public void onSwitchToNextFragment(String key, List<String> values) {

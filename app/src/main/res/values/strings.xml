@@ -4,6 +4,7 @@
     <string name="general_fragment">General</string>
     <string name="groups_fragment">Groups</string>
     <string name="contacts_fragment">Contacts</string>
+    <string name="tag_delete_text">Delete</string>
     <string name="title_activity_contacts_list">ContactsList</string>
 
     <!-- TODO: Remove or change this placeholder text -->
