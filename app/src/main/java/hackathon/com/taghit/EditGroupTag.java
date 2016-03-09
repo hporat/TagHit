@@ -3,6 +3,7 @@ package hackathon.com.taghit;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -66,7 +67,17 @@ public class EditGroupTag extends BaseFragment implements ImageButton.OnClickLis
         mTagsLst = (ListView)returnView.findViewById(R.id.listTags);
         List<String> tags = GroupsTags.getTags(mGroupName);
         adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, tags);
+                android.R.layout.simple_list_item_1, tags)
+        {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                textView.setTextColor(Color.parseColor("#393A3B"));
+
+                return textView;
+            }
+
+        };
         mTagsLst.setAdapter(adapter);
 
         registerForContextMenu(mTagsLst);
@@ -102,6 +113,10 @@ public class EditGroupTag extends BaseFragment implements ImageButton.OnClickLis
     public boolean onContextItemSelected(MenuItem item) {
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + item.getItemId());
         System.out.println("!!!!!!!!!!" + adapter.getItem(getAdapterItemPosition(item.getItemId())));
+
+        String tagName2Delete = adapter.getItem(getAdapterItemPosition(item.getItemId()));
+        GroupsTags.getTags(mGroupName).remove(tagName2Delete);
+        adapter.notifyDataSetChanged();
         return super.onContextItemSelected(item);
 //        if (item.getTitle() == "Delete") {
 //            mTagsLst.get

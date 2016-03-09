@@ -63,7 +63,8 @@ tools:context="hackathon.com.taghit.EditGroupTag">
             android:layout_column="0"
             android:layout_columnSpan="3"
             android:layout_below="@+id/textView"
-            android:layout_alignStart="@+id/textView" />
+            android:layout_alignStart="@+id/textView"
+            android:layout_marginTop="10dp" />
 
         <ScrollView
             android:layout_width="wrap_content"
