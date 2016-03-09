@@ -4,6 +4,7 @@ package hackathon.com.taghit;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -63,7 +64,7 @@ public class EditGroupTag extends BaseFragment implements ImageButton.OnClickLis
                 android.R.layout.simple_list_item_1, tags);
         mTagsLst.setAdapter(adapter);
 
-        ImageButton addButton = (ImageButton)returnView.findViewById(R.id.fab);
+        FloatingActionButton addButton = (FloatingActionButton)returnView.findViewById(R.id.addTagButton);
         addButton.setOnClickListener(this);
 
         return returnView;
@@ -84,7 +85,7 @@ public class EditGroupTag extends BaseFragment implements ImageButton.OnClickLis
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //Inflate the view from a predefined XML layout
             View layout = inflater.inflate(R.layout.add_tag_popup,
-                    (ViewGroup)getActivity().findViewById(R.id.popup_element));
+                    (ViewGroup)getActivity().findViewById(R.id.popup_add_tag));
             // create a 300px width and 470px height PopupWindow
             pw = new PopupWindow(layout, 500, 370, true);
             // display the popup in the center
