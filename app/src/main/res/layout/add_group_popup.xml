@@ -5,8 +5,8 @@
     android:layout_height="fill_parent"
     android:padding="10px"
     android:orientation="vertical"
-    android:background="@drawable/custom_border"
-    >
+    android:background="#d4716f6f"
+    android:baselineAligned="true">
 
     <TextView
         android:layout_width="fill_parent"

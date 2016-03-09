@@ -64,7 +64,7 @@ public class TagNotificationListenerService extends NotificationListenerService 
             Bundle extras = sbn.getNotification().extras;
             String group = extras.getString("android.title");
             String[] splitByAssetrix = group.split("@");
-            String groupName = splitByAssetrix.length > 1 ? splitByAssetrix[1].trim() : group;
+            String groupName = splitByAssetrix.length > 1 ? splitByAssetrix[1].trim() : group.trim();
             String message = extras.getCharSequence("android.text").toString();
 
             Log.i(TAG, "packageName: " + packageName + " from: " + ticker + " group: " + groupName + " message: " + message);

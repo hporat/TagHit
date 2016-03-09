@@ -1,6 +1,7 @@
 package hackathon.com.taghit;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -98,7 +99,7 @@ public class GroupsFragement extends BaseFragment implements
 
             ImageView imageView = (ImageView) rowView.findViewById(R.id.groupImg);
             txtTitle.setText(mGroupNames.get(position));
-
+            txtTitle.setTextColor(Color.parseColor("#393A3B"));
             try{
                 imageView.setImageBitmap(GroupsTags.groupsToIconMap.get(mGroupNames.get(position)).getBitmap());
             }

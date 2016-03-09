@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:baselineAligned="false">
     <TableRow>
         <ImageView
             android:id="@+id/groupImg"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
+            android:paddingTop="10dp"
             />
 
         <TextView
+            android:textColor="#393A3B"
             android:id="@+id/groupNameInList"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:textSize="20dp"
-            android:textColorHighlight="#FEC403"
+            android:clickable="true"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp" />
