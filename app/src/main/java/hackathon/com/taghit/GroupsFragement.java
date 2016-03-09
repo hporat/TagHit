@@ -99,7 +99,12 @@ public class GroupsFragement extends BaseFragment implements
             ImageView imageView = (ImageView) rowView.findViewById(R.id.groupImg);
             txtTitle.setText(mGroupNames.get(position));
 
-            imageView.setImageResource(R.drawable.group2);
+            try{
+                imageView.setImageBitmap(GroupsTags.groupsToIconMap.get(mGroupNames.get(position)).getBitmap());
+            }
+            catch(Exception e){
+                imageView.setImageResource(R.drawable.group2);
+            }
             return rowView;
         }
     }
@@ -129,7 +134,7 @@ public class GroupsFragement extends BaseFragment implements
 
     private View.OnClickListener add_button_click_listener = new View.OnClickListener() {
         public void onClick(View v) {
-            GroupsTags.addGroup(mNewGroupTxt.getText().toString());
+            //GroupsTags.addGroup(mNewGroupTxt.getText().toString());
             pw.dismiss();
         }
     };

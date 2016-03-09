@@ -65,7 +65,6 @@ public class MainActivity extends  AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        GroupsTags.save();
         super.onDestroy();
         unregisterReceiver(nReceiver);
     }

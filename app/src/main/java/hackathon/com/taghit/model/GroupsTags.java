@@ -1,8 +1,10 @@
 package hackathon.com.taghit.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -21,9 +23,15 @@ import java.util.Set;
  */
 public class GroupsTags {
     private static Map<String, List<String>> groupsToTagsMap = new LinkedHashMap<>();
+    public static Map<String, SerializableBitmap> groupsToIconMap = new LinkedHashMap<>();
 
-    public static void addGroup(String groupName) {
-        if(!groupsToTagsMap.containsKey(groupName)) groupsToTagsMap.put(groupName, new ArrayList<String>());
+    public static void addGroup(String groupName,Bitmap icon) {
+        if(groupName==null || groupName.trim().isEmpty()) return;
+        if(!groupsToTagsMap.containsKey(groupName)) {
+            groupsToTagsMap.put(groupName, new ArrayList<String>());
+            groupsToIconMap.put(groupName,new SerializableBitmap(icon));
+        }
+        //groupsToIconMap.put(groupName,new SerializableBitmap(icon));
         GroupsTags.save();
     }
 
@@ -39,9 +47,6 @@ public class GroupsTags {
     public static List<String> getTags(String groupName) {
         // if load wasnt read
         if(groupsToTagsMap.isEmpty()) GroupsTags.load();
-        if(!groupsToTagsMap.containsKey(groupName)) {
-            addGroup(groupName);
-        }
         return groupsToTagsMap.get(groupName);
     }
 
@@ -54,13 +59,18 @@ public class GroupsTags {
     }
 
     public static void save() {
-        //// TODO: 07/03/2016
         try {
-            File path = Environment.getExternalStoragePublicDirectory(Environment.MEDIA_SHARED);
+            File path = Environment.getExternalStorageDirectory();
             FileOutputStream fout = new FileOutputStream(path.getAbsolutePath()+"//groups.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
+            //groupsToTagsMap = new LinkedHashMap<>();
             oos.writeObject(groupsToTagsMap);
             oos.close();
+
+            FileOutputStream foutIcon = new FileOutputStream(path.getAbsolutePath()+"//icon.ser");
+            ObjectOutputStream oosIcon = new ObjectOutputStream(foutIcon);
+            oosIcon.writeObject(groupsToIconMap);
+            oosIcon.close();
             System.out.println("Done");
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,18 +78,20 @@ public class GroupsTags {
     }
 
     public static void load() {
-        addTag("Test", "@seffy");
-        addTag("IATI", "@Hadas");
-
-        //// TODO: 07/03/2016
         try
         {
-            File path = Environment.getExternalStoragePublicDirectory(Environment.MEDIA_SHARED);
+            File path = Environment.getExternalStorageDirectory();
             FileInputStream fileIn = new FileInputStream(path.getAbsolutePath()+"//groups.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             groupsToTagsMap = (Map<String, List<String>>) in.readObject();
             in.close();
             fileIn.close();
+
+            FileInputStream fileIn1 = new FileInputStream(path.getAbsolutePath()+"//icon.ser");
+            ObjectInputStream in1 = new ObjectInputStream(fileIn1);
+            groupsToIconMap = (Map<String, SerializableBitmap>) in1.readObject();
+            in1.close();
+            fileIn1.close();
         }catch(IOException i)
         {
             i.printStackTrace();

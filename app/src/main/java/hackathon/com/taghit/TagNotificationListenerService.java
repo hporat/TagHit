@@ -68,7 +68,7 @@ public class TagNotificationListenerService extends NotificationListenerService 
             String message = extras.getCharSequence("android.text").toString();
 
             Log.i(TAG, "packageName: " + packageName + " from: " + ticker + " group: " + groupName + " message: " + message);
-            GroupsTags.addGroup(groupName);
+
             List<String> tags = GroupsTags.getTags(groupName);
             boolean isImportantMessage = false;
             if (tags != null && tags.size()>0) {
@@ -83,8 +83,20 @@ public class TagNotificationListenerService extends NotificationListenerService 
             } else {
                 isImportantMessage = true;
             }
-            if(message.endsWith("new messages")) isImportantMessage=false;
-            if(message.endsWith("chats") && message.contains("messages")) isImportantMessage=false;
+            if(message.endsWith("new messages")){
+                isImportantMessage=false;
+            }
+            else {
+                if(message.endsWith("chats") && message.contains("messages"))
+                {
+                    isImportantMessage=false;
+                }
+                else if(group.contains("@") || ticker.contains("@"))
+                {
+                    GroupsTags.addGroup(groupName,sbn.getNotification().largeIcon);
+                }
+            }
+
             if(isImportantMessage){
                 NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 NotificationCompat.Builder ncomp = new NotificationCompat.Builder(this);
@@ -95,7 +107,6 @@ public class TagNotificationListenerService extends NotificationListenerService 
                 ncomp.setLargeIcon(sbn.getNotification().largeIcon);
                 ncomp.setAutoCancel(true);
                 Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.whatsapp");
-                ncomp.setAutoCancel(true);
                 // The stack builder object will contain an artificial back stack for the
                 // started Activity.
                 // This ensures that navigating backward from the Activity leads out of
