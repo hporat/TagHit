@@ -119,7 +119,7 @@ public class GroupsFragement extends BaseFragment implements
             View layout = inflater.inflate(R.layout.add_group_popup,
                     (ViewGroup)getActivity().findViewById(R.id.popup_add_group));
             // create a 300px width and 470px height PopupWindow
-            pw = new PopupWindow(layout, 500, 370, true);
+            pw = new PopupWindow(layout, 500, 470, true);
             // display the popup in the center
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
