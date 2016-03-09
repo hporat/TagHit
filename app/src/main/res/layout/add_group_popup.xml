@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/popup_add_tag"
+    android:id="@+id/popup_add_group"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="10px"
@@ -13,11 +13,11 @@
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="New tag"
+        android:text="New group name:"
         android:textColor="#ffffff" />
 
 
-    <EditText android:id="@+id/new_tag_text"
+    <EditText android:id="@+id/new_group_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="10sp"
@@ -29,7 +29,7 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal|bottom">
 
-        <Button android:id="@+id/add_button_popup"
+        <Button android:id="@+id/add_group_button_popup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
