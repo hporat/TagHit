@@ -55,7 +55,7 @@ public class GroupsTags {
 
     public static void save() {
         //// TODO: 07/03/2016
-        /*try {
+        try {
             File path = Environment.getExternalStoragePublicDirectory(Environment.MEDIA_SHARED);
             FileOutputStream fout = new FileOutputStream(path.getAbsolutePath()+"//groups.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
@@ -64,31 +64,15 @@ public class GroupsTags {
             System.out.println("Done");
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     public static void load() {
-        addTag("IATI", "hi, ddd ddd,");
+        addTag("Test", "@seffy");
         addTag("IATI", "@Hadas");
-        addTag("dIATI", "hi");
-        addTag("fiati", "@Hadas");
-        addTag("gIATI", "hi");
-        addTag("hiati", "@Hadas");
-        addTag("jIATI", "hi");
-        addTag("jiati", "@Hadas");
-        addTag("jIATI", "hi");
-        addTag("jiati", "@Hadas");
-        addTag("fIATI", "hi");
-        addTag("liati", "@Hadas");
-        addTag("kIATI", "hi");
-        addTag("uiati", "@Hadas");
-        addTag("kuku", "@Hadas");
-        addTag("muku", "@Hadas");
-        addTag("kuku2", "@Hadas");
-        addTag("kuku3", "@Hadas");
-        addTag("kuku", "@Hadas");
+
         //// TODO: 07/03/2016
-        /*try
+        try
         {
             File path = Environment.getExternalStoragePublicDirectory(Environment.MEDIA_SHARED);
             FileInputStream fileIn = new FileInputStream(path.getAbsolutePath()+"//groups.ser");
@@ -105,6 +89,6 @@ public class GroupsTags {
             System.out.println("Employee class not found");
             c.printStackTrace();
             return;
-        }*/
+        }
     }
 }
